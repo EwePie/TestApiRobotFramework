@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.0 (Python 3.11.8 on linux)" generated="2024-04-07T12:57:58.767093" rpa="false" schemaversion="5">
+<suite id="s1" name="Apitest3" source="/home/tester/TestApiRobotFramework/apitest3.robot">
+<test id="s1-t1" name="GetSingleUser" line="11">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2024-04-07T12:57:58.875239" level="INFO">Creating Session using : alias=session1, url=https://reqres.in/, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>session1</arg>
+<arg>${base_url}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2024-04-07T12:57:58.875024" elapsed="0.000486"/>
+</kw>
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2024-04-07T12:57:58.987417" level="INFO">GET Request : url=https://reqres.in/api/users/2 
+ path_url=/api/users/2 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2024-04-07T12:57:58.988032" level="INFO">GET Response : url=https://reqres.in/api/users/2 
+ status=200, reason=OK 
+ headers={'Date': 'Sun, 07 Apr 2024 12:57:47 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Report-To': '{"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1711528258&amp;sid=c4c9725f-1ab0-44d8-820f-430df2718e11&amp;s=I7Nw8yEFbOa37El%2FrhwK0%2BwlvJ3%2FVFZbSEj7QSnvXPQ%3D"}]}', 'Reporting-Endpoints': 'heroku-nel=https://nel.heroku.com/reports?ts=1711528258&amp;sid=c4c9725f-1ab0-44d8-820f-430df2718e11&amp;s=I7Nw8yEFbOa37El%2FrhwK0%2BwlvJ3%2FVFZbSEj7QSnvXPQ%3D', 'Nel': '{"report_to":"heroku-nel","max_age":3600,"success_fraction":0.005,"failure_fraction":0.05,"response_headers":["Via"]}', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Etag': 'W/"118-pbdwwFo9SKNhD3Lx5iHJyngpq00"', 'Via': '1.1 vegur', 'Cache-Control': 'max-age=14400', 'CF-Cache-Status': 'HIT', 'Age': '6931', 'Vary': 'Accept-Encoding', 'Server': 'cloudflare', 'CF-RAY': '870a2f768d54bf80-WAW', 'Content-Encoding': 'gzip'} 
+ body={"data":{"id":2,"email":"janet.weaver@reqres.in","first_name":"Janet","last_name":"Weaver","avatar":"https://reqres.in/img/faces/2-image.jpg"},"support":{"url":"https://reqres.in/#support-heading","text":"To keep ReqRes free, contributions towards server costs are appreciated!"}} 
+ </msg>
+<msg time="2024-04-07T12:57:58.988529" level="INFO">/home/tester/TestApiRobotFramework/.venv/lib/python3.11/site-packages/urllib3/connectionpool.py:1103: InsecureRequestWarning: Unverified HTTPS request is being made to host 'reqres.in'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg time="2024-04-07T12:57:58.989250" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>session1</arg>
+<arg>${single_user_url}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2024-04-07T12:57:58.875727" elapsed="0.113662"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${response.status_code}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2024-04-07T12:57:58.990126" elapsed="0.000738"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${response.content}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2024-04-07T12:57:58.991051" elapsed="0.000655"/>
+</kw>
+<kw name="Convert To String" owner="BuiltIn">
+<msg time="2024-04-07T12:57:58.992584" level="INFO">${status_code} = 200</msg>
+<var>${status_code}</var>
+<arg>${response.status_code}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<status status="PASS" start="2024-04-07T12:57:58.991947" elapsed="0.000668"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${status_code}</arg>
+<arg>200</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2024-04-07T12:57:58.992852" elapsed="0.000231"/>
+</kw>
+<kw name="Convert To String" owner="BuiltIn">
+<msg time="2024-04-07T12:57:58.993961" level="INFO">${response_body} = {"data":{"id":2,"email":"janet.weaver@reqres.in","first_name":"Janet","last_name":"Weaver","avatar":"https://reqres.in/img/faces/2-image.jpg"},"support":{"url":"https://reqres.in/#support-heading","te...</msg>
+<var>${response_body}</var>
+<arg>${response.content}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<status status="PASS" start="2024-04-07T12:57:58.993268" elapsed="0.000729"/>
+</kw>
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${response_body}</arg>
+<arg>Janet</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" start="2024-04-07T12:57:58.994195" elapsed="0.000198"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2024-04-07T12:57:58.995231" level="INFO">${content_type} = application/json; charset=utf-8</msg>
+<var>${content_type}</var>
+<arg>${response.headers}</arg>
+<arg>Content-Type</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2024-04-07T12:57:58.994574" elapsed="0.000690"/>
+</kw>
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${content_type}</arg>
+<arg>application/json</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" start="2024-04-07T12:57:58.995474" elapsed="0.000157"/>
+</kw>
+<status status="PASS" start="2024-04-07T12:57:58.874062" elapsed="0.121766"/>
+</test>
+<status status="PASS" start="2024-04-07T12:57:58.768125" elapsed="0.228153"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="Apitest3">Apitest3</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
